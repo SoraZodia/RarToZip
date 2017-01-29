@@ -6,7 +6,7 @@ FOR /D %%G in (*) DO ( CALL :delDir "%%G" )
 :delFile
 SET name=%1
 
-DEL /P /Q /A -H %name%
+DEL /P /Q /A:-H %name%
 ECHO Deleted %name%
 
 GOTO :EOF
