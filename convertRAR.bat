@@ -9,7 +9,7 @@ SET name=%file:.rar=%
 FOR /f "useback tokens=*" %%A IN ('%file%') DO SET file=%%~A
 FOR /f "useback tokens=*" %%A IN ('%name%') DO SET name=%%~A
 
-IF "%file%"=="" (GOTO :EOF)
+IF "%file%"=="" ( GOTO :EOF )
 
 7z x "%file%" -o.\"%name%"
 7z a "%name%.zip" .\"%name%"\*
