@@ -1,22 +1,23 @@
 @ECHO OFF
 
-FOR %%G IN (*.rar) DO ( CALL :convert "%%G" )
+SET f=%1
+
+FOR %%G IN (*.rar) DO ( CALL :convert "%f%" "%%G" )
 
 :convert
-SET file=%1
+SET file=%~2
 SET name=%file:.rar=%
-
-FOR /f "useback tokens=*" %%A IN ('%file%') DO SET file=%%~A
-FOR /f "useback tokens=*" %%A IN ('%name%') DO SET name=%%~A
 
 IF "%file%"=="" ( GOTO :EOF )
 
 7z x "%file%" -o.\"%name%"
 7z a "%name%.zip" .\"%name%"\*
 RD /S /Q .\"%name%"\
-ECHO Deleted %name%
+ECHO Deleted folder %name%
 
-REM DEL /Q .\"%file%"
-REM ECHO Deleted %file%
+IF /I NOT "%~1"=="keep" ( 
+DEL /Q .\"%file%"
+ECHO Deleted %file% 
+)
 
 GOTO :EOF
